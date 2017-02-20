@@ -54,9 +54,15 @@ p.section-title {
 
         width: 80%;
     }
+    .container-fluid {
+
+        padding-right: 0;
+        padding-left: 0;
+    }
     .container-fluid>.navbar-collapse {
 
         margin-left: 0px;
+
     }
 
     nav.container {
@@ -72,6 +78,12 @@ p.section-title {
     }
     #collapsable-nav li a:hover {
     color: black;
+    background-color: white;
+    }
+
+    .navbar-header {
+        padding-left: 15px;
+        padding-right: 15px;
     }
 }
 
