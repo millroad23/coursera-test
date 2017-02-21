@@ -1,5 +1,6 @@
 body {
     background-color: #ffffff;
+    box-sizing: border-box;
 
 }
 
@@ -32,9 +33,17 @@ p.section-title {
 .main-content {
     background-color: #75B8C8;
     color: #000;
-    padding: 10px 40px;
     border-radius: 3px;
+    padding: 10px 30px 10px 30px;
+    margin-right: 0;
+    margin-bottom: 10px;
 
+}
+
+.back a {
+
+    color: black;
+    font-weight: bold;
 }
 
 #collapsable-nav {
@@ -85,10 +94,21 @@ p.section-title {
         padding-left: 15px;
         padding-right: 15px;
     }
+
 }
 
-/********** SMALL TO LARGE  **********/
-@media (min-width: 768px) {
+/********** MEDIUM TO LARGE  **********/
+@media (max-width: 991px) {
+
+    .main-content {
+    margin-top: 15px;
+
+    }
+
+}
+
+/********** MEDIUM TO LARGE  **********/
+@media (min-width: 992) {
 
 
 
