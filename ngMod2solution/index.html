@@ -23,7 +23,7 @@
     </style>
   </head>
 <body>
-  <div class="container" ng-controller='PurchasedController as purchased'>
+  <div class="container">
   <h1>Shopping List Check Off</h1>
 
   <div class="row">
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Already Bought List -->
-    <div class="col-md-6" >
+    <div class="col-md-6" ng-controller='PurchasedController as purchased'>
      <h2>Already Bought:</h2>
      <ul>
        <li ng-repeat="item in purchased.purchasedList">Bought {{item.quantity}} {{item.name}}</li>
@@ -55,35 +55,31 @@
 <script>
     (function(){
     app = angular.module('app', []);
-
-    app.controller('PurchasedController', PurchasedController);
     app.controller('ShoppingListController', ShoppingListController);
-    app.factory('ShoppingListFactory', ShoppingListFactory);
-
-    PurchasedController.$inject = ['$scope', 'ShoppingListFactory'];
-    function PurchasedController($scope, ShoppingListFactory) {
-        $scope.pCtrl = this;
-        var ShopListFactory = ShoppingListFactory();
-        $scope.pCtrl.purchasedList = ShopListFactory.getPurchasedList();
-        $scope.pCtrl.shoppingList = ShopListFactory.getShoppingList();
+    app.controller('PurchasedController', PurchasedController);
+    app.service('ShoppingListService', ShoppingListService);
 
 
-    };
+    ShoppingListController.$inject = ['ShoppingListService'];
+    function ShoppingListController(ShoppingListService) {
+        var  sCtrl = this;
+        sCtrl.list = ShoppingListService.getShoppingList();
 
-    ShoppingListController.$inject = ['$scope', 'ShoppingListFactory'];
-    function ShoppingListController($scope, ShoppingListFactory) {
-        var  shopCtrl = this;
-        var ShopListFactory = ShoppingListFactory();
-        shopCtrl.list = $scope.pCtrl.shoppingList
-
-
-
-
-        shopCtrl.buy = function (index) {
-            ShopListFactory.buyItem(shopCtrl.list, index, $scope.pCtrl.purchasedList);
+        sCtrl.buy = function (index) {
+            ShoppingListService.buyItem(index);
 
         };
     };
+
+    PurchasedController.$inject = ['ShoppingListService'];
+    function PurchasedController(ShoppingListService) {
+        pCtrl = this;
+        pCtrl.purchasedList = ShoppingListService.getPurchasedList();
+
+
+
+    };
+
 
     function ShoppingListService() {
         var service = this;
@@ -99,9 +95,9 @@
         };
 
 
-        service.buyItem = function (shopList, index, purchasedList) {
-            var item = shopList[index];
-            shopList.splice(index, 1);
+        service.buyItem = function (index) {
+            var item = shoppingList[index];
+            shoppingList.splice(index, 1);
             purchasedList.push(item);
 
         };
@@ -109,12 +105,6 @@
 
     };
 
-    function ShoppingListFactory() {
-        var factory = function () {
-            return new ShoppingListService();
-        };
-        return factory;
-    };
 
 
     })();
