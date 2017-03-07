@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" ng-app='app'>
+  <head>
+    <title>Shopping List Check Off</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <style>
+      .emptyMessage {
+        font-weight: bold;
+        color: red;
+        font-size: 1.2em;
+      }
+      li {
+        margin-bottom: 7px;
+        font-size: 1.2em;
+      }
+      li > button {
+        margin-left: 6px;
+      }
+      button > span {
+        color: green;
+      }
+    </style>
+  </head>
+<body>
+  <div class="container" ng-controller='PurchasedController as purchased'>
+  <h1>Shopping List Check Off</h1>
+
+  <div class="row">
+
+    <!-- To Buy List -->
+    <div class="col-md-6" ng-controller='ShoppingListController as tobuy'>
+     <h2>To Buy:</h2>
+     <ul>
+       <li ng-repeat="item in tobuy.list">Buy {{item.quantity}} {{item.name}}
+       <button ng-click="tobuy.buy($index);" class="btn btn-default" ><span class="glyphicon glyphicon-shopping-cart"></span> Buy</button>
+       </li>
+
+     </ul>
+     <div ng-show="tobuy.list.length == 0" class="emptyMessage">Everything is bought!</div>
+    </div>
+
+    <!-- Already Bought List -->
+    <div class="col-md-6" >
+     <h2>Already Bought:</h2>
+     <ul>
+       <li ng-repeat="item in purchased.purchasedList">Bought {{item.quantity}} {{item.name}}</li>
+     </ul>
+     <div class="emptyMessage" ng-show="purchased.purchasedList.length === 0">Nothing bought yet.</div>
+    </div>
+  </div>
+</div>
+
+<script src="js/angular.min.js"></script>
+<script>
+    (function(){
+    app = angular.module('app', []);
+
+    app.controller('PurchasedController', PurchasedController);
+    app.controller('ShoppingListController', ShoppingListController);
+    app.factory('ShoppingListFactory', ShoppingListFactory);
+
+    PurchasedController.$inject = ['$scope', 'ShoppingListFactory'];
+    function PurchasedController($scope, ShoppingListFactory) {
+        $scope.pCtrl = this;
+        var ShopListFactory = ShoppingListFactory();
+        $scope.pCtrl.purchasedList = ShopListFactory.getPurchasedList();
+        $scope.pCtrl.shoppingList = ShopListFactory.getShoppingList();
+
+
+    };
+
+    ShoppingListController.$inject = ['$scope', 'ShoppingListFactory'];
+    function ShoppingListController($scope, ShoppingListFactory) {
+        var  shopCtrl = this;
+        var ShopListFactory = ShoppingListFactory();
+        shopCtrl.list = $scope.pCtrl.shoppingList
+
+
+
+
+        shopCtrl.buy = function (index) {
+            ShopListFactory.buyItem(shopCtrl.list, index, $scope.pCtrl.purchasedList);
+
+        };
+    };
+
+    function ShoppingListService() {
+        var service = this;
+        var shoppingList = [{ name: "Cookies", quantity: 10, bought:0 }, { name: "Sodas", quantity: 10, bought:0 }, { name: "Chips", quantity: 50, bought:0}, { name: "Chocolate bars", quantity: 250, bought:0 }];
+        var purchasedList = [];
+
+        service.getShoppingList = function () {
+            return shoppingList;
+        };
+
+        service.getPurchasedList = function () {
+            return purchasedList;
+        };
+
+
+        service.buyItem = function (shopList, index, purchasedList) {
+            var item = shopList[index];
+            shopList.splice(index, 1);
+            purchasedList.push(item);
+
+        };
+
+
+    };
+
+    function ShoppingListFactory() {
+        var factory = function () {
+            return new ShoppingListService();
+        };
+        return factory;
+    };
+
+
+    })();
+</script>
+</body>
+</html>
