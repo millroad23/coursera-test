@@ -4,7 +4,7 @@ var app = angular.module('chineseapp', []);
     app.controller('SearchController', SearchController);
     app.controller('FoundDirectiveController', FoundDirectiveController);
     app.service('MenuCategoriesService', MenuCategoriesService);
-    app.constant('ApiBasePath', "http://davids-restaurant.herokuapp.com");
+    app.constant('ApiBasePath', "https://davids-restaurant.herokuapp.com");
     // app.constant('ApiBasePath', "http://localhost:3000/json");
     app.directive('foundItems', FoundItemsDirective);
 
