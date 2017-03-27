@@ -3,8 +3,8 @@
 
 angular.module('MenuApp').config(RoutesConfig);
 
-RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
-function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
+function RoutesConfig($stateProvider, $urlRouterProvider) {
 
 
   $urlRouterProvider.otherwise('/');
