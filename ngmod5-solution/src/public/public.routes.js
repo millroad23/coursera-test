@@ -37,7 +37,24 @@ function routeConfig ($stateProvider) {
       controllerAs: 'menuItemsCtrl',
       resolve: {
         menuItems: ['$stateParams','MenuService', function ($stateParams, MenuService) {
-          return MenuService.getMenuItems($stateParams.category);
+          return MenuService.getTheMenuItems($stateParams.category);
+        }]
+      }
+    })
+    .state('public.signup', {
+        url: '/signup',
+        templateUrl: 'src/public/signup/signup.html',
+        controller: 'SignupController',
+        controllerAs: 'signupCtrl'
+    })
+    .state('public.myinfo', {
+        url: '/signup',
+        templateUrl: 'src/public/myinfo/myinfo.html',
+        controller: 'MyInfoController',
+        controllerAs: 'myInfoCtrl',
+        resolve: {
+        user: ['UserService', function (UserService) {
+          return UserService.getUser();
         }]
       }
     });

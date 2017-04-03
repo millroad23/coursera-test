@@ -1,0 +1,118 @@
+<div class="container">
+    <h2 id="menu-categories-title" class="text-center">{{signupCtrl.title}}</h2>
+    <div ng-hide="signupCtrl.completed">
+    <form name="signupForm" class="form-horizontal" novalidate>
+    <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label" >First name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control"  name="firstName" ng-model="signupCtrl.user.firstName" placeholder="First name" required minlength="1" ng-maxlength="30">
+        </div>
+        <!-- ERROR START -->
+        <div class="col-sm-10 pull-right error">
+            <span ng-if="(signupForm.firstName.$error.minlength || signupForm.firstName.$error.required)
+                    && signupForm.firstName.$touched">First name must be at least 1 character long</span>
+        </div>
+        <div class="col-sm-10 pull-right error">
+            <span ng-if="signupForm.firstName.$error.maxlength && signupForm.firstName.$touched">First name must not be longer than 30 characters.</span>
+        </div>
+        <!-- ERROR END -->
+      </div>
+
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Last name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="lastName" ng-model="signupCtrl.user.lastName" placeholder="Last name" required minlength="2" ng-maxlength="30">
+        </div>
+        <!-- ERROR START -->
+        <div class="col-sm-10 pull-right error">
+            <span ng-if="(signupForm.lastName.$error.minlength || signupForm.lastName.$error.required)
+                    && signupForm.lastName.$touched">Last name must be at least 1 character long</span>
+        </div>
+        <div class="col-sm-10 pull-right error">
+            <span ng-if="signupForm.lastName.$error.maxlength && signupForm.lastName.$touched">Last name must not be longer than 30 characters.</span>
+        </div>
+        <!-- ERROR END -->
+      </div>
+
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="inputEmail3" name="email" ng-model="signupCtrl.user.email" placeholder="Email" required>
+        </div>
+        <!-- ERROR START -->
+        <div class="col-sm-10 pull-right error">
+            <span ng-if="(signupForm.email.$invalid && signupForm.email.$touched)">Please enter a valid email adress: yourname@yourdomain</span>
+        </div>
+
+        <!-- ERROR END -->
+      </div>
+
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Phone</label>
+        <div class="col-sm-10">
+          <input type="phone" class="form-control" id="inputPassword3" name="phone"  ng-model="signupCtrl.user.phone" placeholder="Phone ###-###-####"
+                pattern="(\d{3})-(\d{3})-(\d{4})" required>
+        </div>
+        <!-- ERROR START -->
+        <div class="col-sm-10 pull-right error">
+            <span ng-if="(signupForm.phone.$invalid && signupForm.phone.$touched)">Please enter your phone number in format ###-###-####.</span>
+        </div>
+
+        <!-- ERROR END -->
+      </div>
+
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Favorite menu</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" menuitem name="favDish" ng-model="signupCtrl.user.favDish" placeholder="Enter the menu number of your favorite dish" minlength="1">
+        </div>
+        <!-- ERROR START -->
+        <div class="col-sm-10 pull-right error">
+            <span ng-show="signupForm.favDish.$pending.menuitem">Checking if this name is available...</span>
+            <span ng-show="signupForm.favDish.$error.menuitem">There is no menu item with this name</span>
+            <span ng-if="(signupForm.favDish.$error.minlength || signupForm.favDish.$error.required)
+                    && signupForm.favDish.$touched">Please enter a menu item label.</span>
+        </div>
+
+        <!-- ERROR END -->
+      </div>
+
+      <div class="form-group">
+
+
+        <div class="col-sm-offset-2 col-sm-10">
+          <button ng-disabled="signupForm.$invalid" ng-click="signupCtrl.submit()" type="submit" class="btn btn-default">Sign up</button>
+        </div>
+
+        </div>
+
+    </form>
+    </div>
+    <div class="row"ng-if="signupCtrl.completed">
+        <div id="shortnote" class="col-md-6 col-md-offset-3">
+            <table class="table">
+                <tr>
+                    <td>First name</td>
+                    <td>{{signupCtrl.user.firstName}}</td>
+                </tr>
+                 <tr>
+                    <td>Last name</td>
+                    <td>{{signupCtrl.user.lastName}}</td>
+                </tr>
+                 <tr>
+                    <td>Email</td>
+                    <td>{{signupCtrl.user.email}}</td>
+                </tr>
+                 <tr>
+                    <td>Phone</td>
+                    <td>{{signupCtrl.user.phone}}</td>
+                </tr>
+                 <tr>
+                    <td>Favorite item</td>
+                    <td>{{signupCtrl.user.favDish}}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>

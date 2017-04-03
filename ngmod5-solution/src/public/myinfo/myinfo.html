@@ -1,0 +1,42 @@
+<div class="container">
+    <h2 id="menu-categories-title" class="text-center">{{myInfoCtrl.title}}</h2>
+    <div ng-if="myInfoCtrl.user !== null">
+        <div class="row" >
+            <div class="col-sm-6">
+                <h3>Personal information</h3>
+            </div>
+            <div class="col-sm-6">
+                <h3>Favorite Menu item</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="row">
+                    <div class="col-sm-4">First name:</div>
+                    <div class="col-sm-8">{{myInfoCtrl.user.firstName}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">Last name:</div>
+                    <div class="col-sm-8">{{myInfoCtrl.user.lastName}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">Email:</div>
+                    <div class="col-sm-8">{{myInfoCtrl.user.email}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">Phone:</div>
+                    <div class="col-sm-8">{{myInfoCtrl.user.phone}}</div>
+                </div>
+            </div>
+
+            <menu-item menu-item="myInfoCtrl.user.favDishObj"></menu-item>
+
+        </div>
+    </div>
+    <div class="row" ng-if="myInfoCtrl.user === null">
+        <div id="shortnote" class="col-md-6 col-md-offset-3 text-center">
+            <span>Not Signed Up Yet. <a ui-sref="public.signup">Sign up Now!</span></a>
+        </div>
+    </div>
+</div>

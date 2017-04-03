@@ -111,8 +111,20 @@ h3.menu-item-title {
   font-size: .9em;
   font-style: italic;
 }
+
+/* FILE: css/styles.css */
+.ng-touched.ng-valid {
+  border: 2px green solid;
+}
+
+.ng-touched.ng-invalid {
+  border: 2px red solid;
+}
 /* END SINGLE CATEGORY PAGE */
 
+#shortnote {
+    height: 300px;
+}
 
 /********** Large devices only **********/
 @media (min-width: 1200px) {
